@@ -210,7 +210,7 @@ const cityRegions = [
         {posts.length > 0 ? (
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
             {posts.map((post) => (
-              <a href={`/blog/${post.id}/`} class="group no-underline block">
+              <a href={`/${post.id}/`} class="group no-underline block">
                 {post.data.heroImage && (
                   <div class="aspect-[16/10] overflow-hidden mb-5 bg-stone-100">
                     <Image src={post.data.heroImage} alt={post.data.title} width={720} height={450} class="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500" />
