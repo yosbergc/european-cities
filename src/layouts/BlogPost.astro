@@ -12,75 +12,285 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
 <html lang="en">
-	<head>
-		<BaseHead title={title} description={description} />
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
-	</head>
+  <head>
+    <BaseHead title={title} description={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  </head>
 
-	<body>
-		<Header />
-		<main>
-			<article>
-				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-						<h1>{title}</h1>
-						<hr />
-					</div>
-					<slot />
-				</div>
-			</article>
-		</main>
-		<Footer />
-	</body>
+  <body class="bg-white text-stone-900 antialiased">
+    <Header />
+
+    <main>
+      <!-- Hero Image -->
+      {heroImage && (
+        <div class="w-full max-w-6xl mx-auto px-6 lg:px-8 pt-10">
+          <div class="aspect-[21/9] overflow-hidden bg-stone-100">
+            <Image
+              width={1440}
+              height={620}
+              src={heroImage}
+              alt={title}
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      )}
+
+      <article class="max-w-3xl mx-auto px-6 lg:px-8">
+
+        <!-- Article Header -->
+        <header class="pt-12 pb-10 border-b border-stone-100">
+          <div class="flex flex-wrap items-center gap-3 mb-6">
+            <a href="/blog" class="text-[11px] font-bold tracking-[0.3em] uppercase text-amber-500 hover:text-amber-700 transition-colors no-underline">
+              ← All Guides
+            </a>
+          </div>
+
+          <h1 class="font-serif text-4xl lg:text-5xl xl:text-6xl font-bold text-stone-900 leading-[1.08] tracking-tight mb-6">
+            {title}
+          </h1>
+
+          {description && (
+            <p class="text-lg lg:text-xl text-stone-500 leading-relaxed mb-8 max-w-2xl">
+              {description}
+            </p>
+          )}
+
+          <div class="flex flex-wrap items-center gap-4 text-sm text-stone-400">
+            <time class="text-[12px] font-semibold tracking-widest uppercase">
+              <FormattedDate date={pubDate} />
+            </time>
+            {updatedDate && (
+              <>
+                <span class="w-px h-3 bg-stone-200"></span>
+                <span class="text-[12px] font-semibold tracking-widest uppercase italic">
+                  Updated <FormattedDate date={updatedDate} />
+                </span>
+              </>
+            )}
+          </div>
+        </header>
+
+        <!-- Article Body -->
+        <div class="prose-article py-14">
+          <slot />
+        </div>
+
+      </article>
+    </main>
+
+    <Footer />
+  </body>
 </html>
+
+<style is:global>
+  /* ─── Article body typography ─── */
+  .prose-article {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 19px;
+    line-height: 1.85;
+    color: #292524;
+  }
+
+  .prose-article p {
+    margin-bottom: 1.6em;
+  }
+
+  .prose-article h2 {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1c1917;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #f5f0eb;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  @media (min-width: 1024px) {
+    .prose-article h2 {
+      font-size: 2.1rem;
+    }
+  }
+
+  .prose-article h3 {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1c1917;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .prose-article strong {
+    font-weight: 700;
+    color: #1c1917;
+  }
+
+  .prose-article em {
+    font-style: italic;
+  }
+
+  .prose-article a {
+    color: #d97706;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-underline-offset: 3px;
+    transition: color 0.15s;
+  }
+  .prose-article a:hover {
+    color: #92400e;
+  }
+
+  /* Lists */
+  .prose-article ul,
+  .prose-article ol {
+    padding-left: 0;
+    margin: 1.5em 0 1.8em;
+    list-style: none;
+  }
+
+  .prose-article ul li,
+  .prose-article ol li {
+    position: relative;
+    padding-left: 1.8em;
+    margin-bottom: 0.75em;
+    font-size: 17px;
+  }
+
+  .prose-article ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: #d97706;
+    font-weight: 700;
+  }
+
+  .prose-article ol {
+    counter-reset: list-counter;
+  }
+  .prose-article ol li {
+    counter-increment: list-counter;
+  }
+  .prose-article ol li::before {
+    content: counter(list-counter) '.';
+    position: absolute;
+    left: 0;
+    color: #d97706;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: -apple-system, sans-serif;
+    top: 4px;
+  }
+
+  /* Blockquote */
+  .prose-article blockquote {
+    border-left: 2px solid #d97706;
+    padding: 1rem 1.5rem;
+    margin: 2rem 0;
+    background: #fffbf5;
+  }
+  .prose-article blockquote p {
+    font-style: italic;
+    color: #57534e;
+    margin-bottom: 0;
+    font-size: 1.1em;
+  }
+
+  /* Tables */
+  .prose-article table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 15px;
+    font-family: -apple-system, sans-serif;
+  }
+  .prose-article thead th {
+    background: #1c1917;
+    color: #fff;
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .prose-article tbody td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #f5f0eb;
+    vertical-align: middle;
+    color: #44403c;
+  }
+  .prose-article tbody tr:last-child td {
+    border-bottom: none;
+  }
+  .prose-article tbody tr:hover td {
+    background: #fafaf9;
+  }
+
+  /* Horizontal rule */
+  .prose-article hr {
+    border: none;
+    border-top: 1px solid #f5f0eb;
+    margin: 2.5rem 0;
+  }
+
+  /* Code */
+  .prose-article code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    background: #f5f5f4;
+    color: #b45309;
+    padding: 2px 6px;
+    border-radius: 2px;
+  }
+
+  /* Images inside article */
+  .prose-article img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 2.5rem auto;
+  }
+
+  /* Score badge style (matches HTML reference) */
+  .prose-article .score-badge {
+    display: inline-block;
+    background: #1c1917;
+    color: #fff;
+    font-family: -apple-system, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    margin-bottom: 1.2rem;
+  }
+
+  /* Verdict box style */
+  .prose-article .verdict-box {
+    border-left: 2px solid #f59e0b;
+    background: #fffbf5;
+    padding: 16px 20px;
+    margin: 1.5rem 0 2rem;
+    font-size: 16px;
+    font-family: -apple-system, sans-serif;
+    line-height: 1.7;
+    color: #44403c;
+  }
+
+  /* Responsive tweaks */
+  @media (max-width: 640px) {
+    .prose-article {
+      font-size: 17px;
+    }
+    .prose-article h2 {
+      font-size: 1.5rem;
+    }
+  }
+</style>

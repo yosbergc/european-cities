@@ -8,107 +8,139 @@ import Header from '../../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
 const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+const featured = posts[0];
+const rest     = posts.slice(1);
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead title={`All Guides — ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+  </head>
+
+  <body class="bg-white text-stone-900 antialiased">
+    <Header />
+
+    <main>
+
+      <!-- ── Page header ── -->
+      <div class="max-w-6xl mx-auto px-6 lg:px-8 pt-14 pb-12 border-b border-stone-100">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <p class="text-[11px] font-bold tracking-[0.35em] uppercase text-amber-500 mb-3">
+              All Cities
+            </p>
+            <h1 class="font-serif text-4xl lg:text-5xl font-bold text-stone-900 leading-tight">
+              Food Guides
+            </h1>
+          </div>
+          <p class="text-sm text-stone-400 md:text-right max-w-xs leading-relaxed">
+            {posts.length} guide{posts.length !== 1 ? 's' : ''} published.<br />
+            More cities added throughout the year.
+          </p>
+        </div>
+      </div>
+
+      {posts.length === 0 ? (
+
+        <!-- ── Empty state ── -->
+        <div class="max-w-6xl mx-auto px-6 lg:px-8 py-28 text-center">
+          <span class="text-5xl block mb-6">🍽️</span>
+          <h2 class="font-serif text-2xl font-bold text-stone-900 mb-3">First guides coming soon</h2>
+          <p class="text-stone-500 text-base max-w-sm mx-auto">
+            We're currently eating our way through Europe. Check back soon.
+          </p>
+        </div>
+
+      ) : (
+        <div class="max-w-6xl mx-auto px-6 lg:px-8 py-14 lg:py-20">
+
+          <!-- ── Featured (first post, full-width) ── -->
+          <a href={`/blog/${featured.id}/`} class="group block no-underline mb-16 lg:mb-20">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              {featured.data.heroImage && (
+                <div class="aspect-[16/10] overflow-hidden bg-stone-100 lg:order-2">
+                  <Image
+                    src={featured.data.heroImage}
+                    alt={featured.data.title}
+                    width={800}
+                    height={500}
+                    class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                  />
+                </div>
+              )}
+              <div class={featured.data.heroImage ? 'lg:order-1' : ''}>
+                <div class="flex items-center gap-3 mb-5">
+                  <span class="inline-flex text-[10px] font-bold tracking-[0.3em] uppercase text-white bg-amber-500 px-2.5 py-1">
+                    Featured
+                  </span>
+                  <span class="text-[11px] font-bold tracking-[0.25em] uppercase text-stone-400">
+                    <FormattedDate date={featured.data.pubDate} />
+                  </span>
+                </div>
+                <h2 class="font-serif text-3xl lg:text-4xl xl:text-5xl font-bold text-stone-900 leading-tight mb-4 group-hover:text-amber-700 transition-colors">
+                  {featured.data.title}
+                </h2>
+                <p class="text-base text-stone-500 leading-relaxed mb-6 max-w-lg">
+                  {featured.data.description}
+                </p>
+                <span class="inline-flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase text-stone-900 border border-stone-900 px-4 py-2.5 group-hover:bg-stone-900 group-hover:text-white transition-all duration-200">
+                  Read guide <span class="group-hover:translate-x-1 transition-transform inline-block">→</span>
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <!-- ── Divider ── -->
+          {rest.length > 0 && (
+            <div class="flex items-center gap-4 mb-12">
+              <div class="flex-1 h-px bg-stone-100"></div>
+              <span class="text-[10px] font-bold tracking-[0.3em] uppercase text-stone-300">All guides</span>
+              <div class="flex-1 h-px bg-stone-100"></div>
+            </div>
+          )}
+
+          <!-- ── Rest of posts grid ── -->
+          {rest.length > 0 && (
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+              {rest.map((post) => (
+                <a href={`/blog/${post.id}/`} class="group no-underline block">
+                  {post.data.heroImage && (
+                    <div class="aspect-[16/10] overflow-hidden mb-5 bg-stone-100">
+                      <Image
+                        src={post.data.heroImage}
+                        alt={post.data.title}
+                        width={720}
+                        height={450}
+                        class="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"
+                      />
+                    </div>
+                  )}
+                  <p class="text-[11px] font-bold tracking-[0.25em] uppercase text-stone-400 mb-2">
+                    <FormattedDate date={post.data.pubDate} />
+                  </p>
+                  <h3 class="font-serif text-xl lg:text-2xl font-bold text-stone-900 leading-snug mb-2 group-hover:text-amber-600 transition-colors">
+                    {post.data.title}
+                  </h3>
+                  <p class="text-sm text-stone-500 leading-relaxed line-clamp-2 mb-4">
+                    {post.data.description}
+                  </p>
+                  <span class="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-widest uppercase text-stone-400 group-hover:text-stone-900 transition-colors">
+                    Read guide <span class="group-hover:translate-x-1 transition-transform inline-block">→</span>
+                  </span>
+                </a>
+              ))}
+            </div>
+          )}
+
+        </div>
+      )}
+
+    </main>
+
+    <Footer />
+  </body>
 </html>

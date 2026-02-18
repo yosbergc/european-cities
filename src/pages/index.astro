@@ -3,47 +3,339 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import FormattedDate from '../components/FormattedDate.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+).slice(0, 6);
+
+const cityRegions = [
+  {
+    region: 'Europe',
+    cities: [
+      { name: 'Naples',       country: 'Italy',       emoji: '🍕', href: '/blog' },
+      { name: 'Barcelona',    country: 'Spain',        emoji: '🥘', href: '/blog' },
+      { name: 'Rome',         country: 'Italy',        emoji: '🍝', href: '/blog' },
+      { name: 'Paris',        country: 'France',       emoji: '🥐', href: '/blog' },
+      { name: 'Lisbon',       country: 'Portugal',     emoji: '🐟', href: '/blog' },
+      { name: 'Istanbul',     country: 'Turkey',       emoji: '🫙', href: '/blog' },
+      { name: 'Athens',       country: 'Greece',       emoji: '🫒', href: '/blog' },
+      { name: 'Amsterdam',    country: 'Netherlands',  emoji: '🧀', href: '/blog' },
+      { name: 'Florence',     country: 'Italy',        emoji: '🥩', href: '/blog' },
+      { name: 'Madrid',       country: 'Spain',        emoji: '🍷', href: '/blog' },
+      { name: 'Vienna',       country: 'Austria',      emoji: '☕', href: '/blog' },
+      { name: 'Prague',       country: 'Czechia',      emoji: '🍺', href: '/blog' },
+      { name: 'Budapest',     country: 'Hungary',      emoji: '🌶️', href: '/blog' },
+      { name: 'Dubrovnik',    country: 'Croatia',      emoji: '🦞', href: '/blog' },
+      { name: 'Porto',        country: 'Portugal',     emoji: '🍷', href: '/blog' },
+      { name: 'Milan',        country: 'Italy',        emoji: '🫕', href: '/blog' },
+      { name: 'Seville',      country: 'Spain',        emoji: '🍊', href: '/blog' },
+      { name: 'Copenhagen',   country: 'Denmark',      emoji: '🌿', href: '/blog' },
+      { name: 'Munich',       country: 'Germany',      emoji: '🥨', href: '/blog' },
+      { name: 'Kraków',       country: 'Poland',       emoji: '🥟', href: '/blog' },
+    ],
+  },
+  {
+    region: 'Asia',
+    cities: [
+      { name: 'Bangkok',      country: 'Thailand',     emoji: '🍜', href: '/blog' },
+      { name: 'Tokyo',        country: 'Japan',        emoji: '🍣', href: '/blog' },
+      { name: 'Singapore',    country: 'Singapore',    emoji: '🦀', href: '/blog' },
+      { name: 'Hanoi',        country: 'Vietnam',      emoji: '🍲', href: '/blog' },
+      { name: 'Seoul',        country: 'South Korea',  emoji: '🥩', href: '/blog' },
+      { name: 'Hong Kong',    country: 'China',        emoji: '🥟', href: '/blog' },
+      { name: 'Kuala Lumpur', country: 'Malaysia',     emoji: '🍛', href: '/blog' },
+      { name: 'Taipei',       country: 'Taiwan',       emoji: '🧋', href: '/blog' },
+      { name: 'Osaka',        country: 'Japan',        emoji: '🍱', href: '/blog' },
+      { name: 'Bali',         country: 'Indonesia',    emoji: '🥥', href: '/blog' },
+    ],
+  },
+  {
+    region: 'Americas',
+    cities: [
+      { name: 'Mexico City',  country: 'Mexico',       emoji: '🌮', href: '/blog' },
+      { name: 'New York',     country: 'USA',          emoji: '🥯', href: '/blog' },
+      { name: 'Buenos Aires', country: 'Argentina',    emoji: '🥩', href: '/blog' },
+      { name: 'Lima',         country: 'Peru',         emoji: '🐟', href: '/blog' },
+      { name: 'New Orleans',  country: 'USA',          emoji: '🦐', href: '/blog' },
+      { name: 'San Francisco',country: 'USA',          emoji: '🌉', href: '/blog' },
+      { name: 'Cartagena',    country: 'Colombia',     emoji: '🫑', href: '/blog' },
+      { name: 'Montreal',     country: 'Canada',       emoji: '🍁', href: '/blog' },
+    ],
+  },
+  {
+    region: 'Middle East & Africa',
+    cities: [
+      { name: 'Marrakech',    country: 'Morocco',      emoji: '🫖', href: '/blog' },
+      { name: 'Tel Aviv',     country: 'Israel',       emoji: '🧆', href: '/blog' },
+      { name: 'Dubai',        country: 'UAE',          emoji: '🌴', href: '/blog' },
+      { name: 'Cape Town',    country: 'South Africa', emoji: '🦞', href: '/blog' },
+      { name: 'Cairo',        country: 'Egypt',        emoji: '🫓', href: '/blog' },
+    ],
+  },
+];
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body class="bg-white text-stone-900 antialiased">
+    <Header />
+    <main>
+
+      <!-- HERO -->
+      <section class="max-w-6xl mx-auto px-6 lg:px-8 pt-20 pb-24 lg:pt-28 lg:pb-32">
+        <div class="max-w-4xl">
+          <p class="text-[11px] font-bold tracking-[0.35em] uppercase text-amber-500 mb-6">
+            Europe's Best Food Cities
+          </p>
+          <h1 class="font-serif text-5xl lg:text-7xl xl:text-8xl font-bold text-stone-900 leading-[1.05] tracking-tight mb-8">
+            Eat well<br />
+            <span class="text-stone-300">wherever</span><br />
+            you go.
+          </h1>
+          <p class="text-lg lg:text-xl text-stone-500 leading-relaxed max-w-xl mb-10">
+            Weeks of real tasting. Dozens of restaurants. One honest guide per city. No press trips,
+            no sponsorships — just the food that's actually worth eating.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <a href="/blog" class="inline-flex items-center bg-stone-900 text-white text-[12px] font-bold tracking-widest uppercase px-6 py-3.5 hover:bg-amber-600 transition-colors duration-200 no-underline">
+              Browse All Guides
+            </a>
+            <a href="/about" class="inline-flex items-center text-stone-900 border border-stone-200 text-[12px] font-bold tracking-widest uppercase px-6 py-3.5 hover:border-stone-900 transition-colors duration-200 no-underline">
+              How We Test
+            </a>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-x-12 gap-y-6 mt-16 pt-12 border-t border-stone-100">
+          {[
+            { num: '60+', label: 'Dishes tasted per city' },
+            { num: '30+', label: 'Restaurants visited'    },
+            { num: '0',   label: 'Sponsored posts'        },
+          ].map(s => (
+            <div>
+              <p class="font-serif text-4xl font-bold text-stone-900">{s.num}</p>
+              <p class="text-xs text-stone-400 tracking-widest uppercase mt-1">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ── CITIES SECTION ── -->
+      <section class="border-y border-stone-100 bg-white" id="cities">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8 py-20 lg:py-28">
+
+          <!-- Section header -->
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+            <div>
+              <p class="text-[11px] font-bold tracking-[0.35em] uppercase text-amber-500 mb-3">
+                48 Cities · 4 Continents
+              </p>
+              <h2 class="font-serif text-3xl lg:text-5xl font-bold text-stone-900 leading-tight">
+                Where we eat next
+              </h2>
+            </div>
+            <p class="text-sm text-stone-400 max-w-xs leading-relaxed md:text-right">
+              Every city gets the same treatment — weeks on the ground, dozens of meals, zero shortcuts.
+            </p>
+          </div>
+
+          <!-- Region tabs (JS-powered filter) -->
+          <div class="flex flex-wrap gap-2 mb-10" id="region-tabs">
+            <button data-region="all"    class="tab-btn tab-active">All</button>
+            <button data-region="Europe" class="tab-btn">Europe</button>
+            <button data-region="Asia"   class="tab-btn">Asia</button>
+            <button data-region="Americas" class="tab-btn">Americas</button>
+            <button data-region="Middle East & Africa" class="tab-btn">Middle East & Africa</button>
+          </div>
+
+          <!-- Cities grid -->
+          <div class="cities-grid" id="cities-grid">
+            {cityRegions.map(({ region, cities }) =>
+              cities.map((city) => (
+                <a
+                  href={city.href}
+                  data-region={region}
+                  class="city-card group relative flex items-center gap-4 px-5 py-4 border border-stone-100 hover:border-stone-900 bg-white transition-all duration-200 no-underline overflow-hidden"
+                >
+                  <!-- Hover fill -->
+                  <div class="absolute inset-0 bg-stone-900 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out -z-0"></div>
+
+                  <!-- Emoji -->
+                  <span class="relative z-10 text-xl flex-shrink-0 w-8 text-center leading-none">{city.emoji}</span>
+
+                  <!-- Text -->
+                  <div class="relative z-10 min-w-0">
+                    <p class="font-serif text-[15px] font-bold text-stone-900 group-hover:text-white transition-colors leading-tight truncate">
+                      {city.name}
+                    </p>
+                    <p class="text-[11px] text-stone-400 group-hover:text-stone-400 tracking-wide mt-0.5 truncate">
+                      {city.country}
+                    </p>
+                  </div>
+
+                  <!-- Arrow -->
+                  <span class="relative z-10 ml-auto text-stone-200 group-hover:text-stone-600 text-xs transition-all duration-200 group-hover:translate-x-0.5 flex-shrink-0">
+                    →
+                  </span>
+                </a>
+              ))
+            )}
+          </div>
+
+          <!-- Count label -->
+          <p class="text-[11px] text-stone-300 tracking-widest uppercase mt-8 text-center" id="city-count">
+            Showing all 48 cities
+          </p>
+
+        </div>
+      </section>
+
+      <!-- LATEST ARTICLES -->
+      <section class="max-w-6xl mx-auto px-6 lg:px-8 py-20 lg:py-28">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div>
+            <p class="text-[11px] font-bold tracking-[0.35em] uppercase text-amber-500 mb-3">Latest</p>
+            <h2 class="font-serif text-3xl lg:text-4xl font-bold text-stone-900">Recent guides</h2>
+          </div>
+          <a href="/blog" class="self-start md:self-auto inline-flex text-[11px] font-bold tracking-widest uppercase text-stone-900 border border-stone-900 px-4 py-2.5 hover:bg-stone-900 hover:text-white transition-all duration-200 no-underline">
+            All Articles →
+          </a>
+        </div>
+
+        {posts.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+            {posts.map((post) => (
+              <a href={`/blog/${post.id}/`} class="group no-underline block">
+                {post.data.heroImage && (
+                  <div class="aspect-[16/10] overflow-hidden mb-5 bg-stone-100">
+                    <Image src={post.data.heroImage} alt={post.data.title} width={720} height={450} class="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500" />
+                  </div>
+                )}
+                <p class="text-[11px] font-bold tracking-[0.25em] uppercase text-stone-400 mb-2">
+                  <FormattedDate date={post.data.pubDate} />
+                </p>
+                <h3 class="font-serif text-xl lg:text-2xl font-bold text-stone-900 leading-snug mb-2 group-hover:text-amber-600 transition-colors">
+                  {post.data.title}
+                </h3>
+                <p class="text-sm text-stone-500 leading-relaxed line-clamp-2 mb-4">
+                  {post.data.description}
+                </p>
+                <span class="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-widest uppercase text-stone-400 group-hover:text-stone-900 transition-colors">
+                  Read guide <span class="group-hover:translate-x-1 transition-transform inline-block">→</span>
+                </span>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+            {[1,2,3].map(() => (
+              <div class="opacity-30 animate-pulse">
+                <div class="aspect-[16/10] bg-stone-100 mb-5"></div>
+                <div class="h-2.5 w-20 bg-stone-200 mb-3"></div>
+                <div class="h-5 w-full bg-stone-100 mb-2"></div>
+                <div class="h-5 w-3/4 bg-stone-100 mb-4"></div>
+                <div class="h-2.5 w-16 bg-stone-200"></div>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <!-- BOTTOM CTA -->
+      <section class="border-t border-stone-100">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8 py-20 lg:py-28 text-center">
+          <p class="text-[11px] font-bold tracking-[0.35em] uppercase text-amber-500 mb-5">Independent guides</p>
+          <h2 class="font-serif text-4xl lg:text-6xl font-bold text-stone-900 mb-5 max-w-2xl mx-auto leading-tight">
+            A new city.<br />A new guide.
+          </h2>
+          <p class="text-base text-stone-500 max-w-sm mx-auto mb-10 leading-relaxed">
+            Deep-dive food guides published a few times a year. No fluff, no filler.
+          </p>
+          <a href="/blog" class="inline-flex items-center bg-stone-900 text-white text-[12px] font-bold tracking-widest uppercase px-8 py-4 hover:bg-amber-600 transition-colors duration-200 no-underline">
+            Browse All Guides
+          </a>
+        </div>
+      </section>
+
+    </main>
+    <Footer />
+  </body>
 </html>
+
+<style>
+  /* ── Tab buttons ── */
+  .tab-btn {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border: 1px solid #e7e5e4;
+    background: white;
+    color: #78716c;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover {
+    border-color: #1c1917;
+    color: #1c1917;
+  }
+  .tab-btn.tab-active {
+    background: #1c1917;
+    border-color: #1c1917;
+    color: #ffffff;
+  }
+
+  /* ── Cities grid ── */
+  .cities-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+  @media (min-width: 640px) {
+    .cities-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .cities-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  /* ── City card hidden state ── */
+  .city-card {
+    /* stack context for pseudo-fill */
+    isolation: isolate;
+  }
+  .city-card.hidden-city {
+    display: none;
+  }
+</style>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.tab-btn');
+  const cards = document.querySelectorAll<HTMLElement>('.city-card');
+  const countEl = document.getElementById('city-count');
+
+  function filterCities(region: string) {
+    let shown = 0;
+    cards.forEach(card => {
+      const match = region === 'all' || card.dataset.region === region;
+      card.classList.toggle('hidden-city', !match);
+      if (match) shown++;
+    });
+    tabs.forEach(t => t.classList.toggle('tab-active', t.dataset.region === region));
+    if (countEl) {
+      countEl.textContent = region === 'all'
+        ? `Showing all ${shown} cities`
+        : `Showing ${shown} ${region} ${shown === 1 ? 'city' : 'cities'}`;
+    }
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => filterCities(tab.dataset.region ?? 'all'));
+  });
+</script>
