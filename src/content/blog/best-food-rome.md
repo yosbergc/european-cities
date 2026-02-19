@@ -1,6 +1,6 @@
 ---
 title: 'Best Food in Rome: 2026 Guide & Tasting Results'
-description: 'From the black pepper ferocity of a proper cacio e pepe to the crispy, salt-dusted perfection of supplì and the slow-braised depth of coda alla vaccinara, Rome's food demands your full attention. Here is what six weeks of serious eating revealed.'
+description: 'From the black pepper ferocity of a proper cacio e pepe to the crispy, salt-dusted perfection of supplì and the slow-braised depth of coda alla vaccinara, Romes food demands your full attention. Here is what six weeks of serious eating revealed.'
 pubDate: 'Feb 18 2026'
 ---
 

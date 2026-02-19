@@ -1,6 +1,6 @@
 ---
 title: 'Best Food in Lisbon: 2026 Guide & Tasting Results'
-description: 'From the warm, custard-filled shatter of a pastel de nata straight from the Belém oven to the briny intensity of bacalhau à Brás and the smoke-sweet tenderness of a whole grilled sea bream, Lisbon's food demands patience and rewards it completely. Here is what five weeks of serious eating revealed.'
+description: 'From the warm, custard-filled shatter of a pastel de nata straight from the Belém oven to the briny intensity of bacalhau à Brás and the smoke-sweet tenderness of a whole grilled sea bream, Lisbons food demands patience and rewards it completely. Here is what five weeks of serious eating revealed.'
 pubDate: 'Feb 18 2026'
 ---
 
