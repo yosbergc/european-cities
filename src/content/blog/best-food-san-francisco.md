@@ -1,6 +1,6 @@
 ---
 title: 'Best Food in San Francisco: 2026 Guide & Tasting Results'
-description: 'We spent six weeks tasting over 80 dishes across more than 40 restaurants, from Mission District taquerias to Fisherman's Wharf institutions, to bring you the definitive guide to San Francisco's most iconic foods.'
+description: 'We spent six weeks tasting over 80 dishes across more than 40 restaurants, from Mission District taquerias to Fishermans Wharf institutions, to bring you the definitive guide to San Franciscos most iconic foods.'
 pubDate: 'Feb 18 2026'
 ---
 

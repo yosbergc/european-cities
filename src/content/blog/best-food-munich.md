@@ -1,6 +1,6 @@
 ---
 title: 'Best Food in Munich: 2026 Guide & Tasting Results'
-description: 'We spent four weeks eating through Munich — from crispy Schweinshaxe and delicate Weisswurst to golden Schmalznudeln — tasting 60+ dishes to find the city's absolute best.'
+description: 'We spent four weeks eating through Munich — from crispy Schweinshaxe and delicate Weisswurst to golden Schmalznudeln — tasting 60+ dishes to find the citys absolute best.'
 pubDate: 'Feb 18 2026'
 ---
 

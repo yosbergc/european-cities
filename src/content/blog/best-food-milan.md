@@ -1,6 +1,6 @@
 ---
 title: 'Best Food in Milan: 2026 Guide & Tasting Results'
-description: 'We spent four weeks eating through Milan — from golden saffron risotto and bone-in cotoletta to rum-soaked babà and aperitivo at Bar Basso — tasting 55+ dishes to find the city's absolute best.'
+description: 'We spent four weeks eating through Milan — from golden saffron risotto and bone-in cotoletta to rum-soaked babà and aperitivo at Bar Basso — tasting 55+ dishes to find the citys absolute best.'
 pubDate: 'Feb 18 2026'
 ---
 
