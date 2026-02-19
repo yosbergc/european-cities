@@ -1,6 +1,6 @@
 ---
 title: 'Best Food in Barcelona: 2026 Guide & Tasting Results'
-description: 'From the crispy, saffron-soaked rice of a proper paella to the cold silkiness of pan con tomate and the brine-sharp snap of fresh anchovies, Barcelona's food scene demanded weeks of serious eating. Here is what we found.'
+description: 'From the crispy, saffron-soaked rice of a proper paella to the cold silkiness of pan con tomate and the brine-sharp snap of fresh anchovies, Barcelonas food scene demanded weeks of serious eating. Here is what we found.'
 pubDate: 'Feb 18 2026'
 ---
 
