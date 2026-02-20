@@ -3,7 +3,7 @@ title: 'Best Food in Naples: 2026 Guide & Tasting Results'
 description: 'We spent four weeks eating our way through Naples  from wood-fired Margheritas to rum-soaked babà. Here are the 8 dishes that are absolutely non-negotiable.'
 pubDate: 'Feb 18 2026'
 ---
-
+![Naples Food](/src/assets/naples.png)
 When it comes to culinary destinations, Naples stands in a league of its own. This is the city that gave the world pizza, transformed the humble tomato into a culinary icon, and turned street food into high art  all while staying fiercely rooted in tradition.
 
 We spent over four weeks eating our way through the city  from the narrow alleys of the Quartieri Spagnoli to the seaside trattorias of Mergellina  tasting over 60 dishes across more than 30 restaurants, pizzerias, bakeries, and street carts.
